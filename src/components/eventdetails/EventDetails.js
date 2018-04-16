@@ -21,7 +21,8 @@ export default class EventDetails extends Component {
 						start: json.event.start_datetime
 					}
 				});
-			}).catch(_ => {
+			}).catch(e => {
+			console.log('error', e);
 			this.setState({
 				status: 'error'
 			})

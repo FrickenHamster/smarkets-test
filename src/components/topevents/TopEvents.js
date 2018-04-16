@@ -6,7 +6,7 @@ import './TopEvents.css';
 export default class TopEvents extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {events: []};
+		this.state = {events: [], status: 'load'};
 		this.redirect = this.redirect.bind(this);
 	}
 
@@ -14,7 +14,6 @@ export default class TopEvents extends Component {
 		fetch('/events/popular/')
 			.then(response => response.json())
 			.then(json => {
-				console.log(json);
 				const events = [];
 				for (const e of json.results) {
 					events.push({
@@ -22,10 +21,11 @@ export default class TopEvents extends Component {
 						id: e.id
 					});
 				}
-				this.setState({events});
+				this.setState({events, status: 'done'});
 			})
 			.catch(e => {
 				console.log('error', e);
+				this.setState({status: 'error'});
 			})
 	}
 
@@ -37,17 +37,39 @@ export default class TopEvents extends Component {
 		if (this.state.redirect) {
 			return (<Redirect push to={this.state.redirect}/>);
 		}
+		let content;
+		if (this.state.status === 'load') {
+			content = (
+			<div className='container'>
+				<h2>
+				LOADING
+				</h2>
+			</div>
+			)
+		} else if (this.state.status === 'error') {
+			content = (
+				<div className='container'>
+					<h2>
+						ERROR Please try again
+					</h2>
+				</div>
+			)
+		} else {
+			const ee = this.state.events.map(e => (<Event name={e.name} key={e.id} id={e.id} redirect={this.redirect}/>));
+			content = (
+				<div className='container'>
+					{ee}
+				</div>
+			)
+		}
 
-		const ee = this.state.events.map(e => (<Event name={e.name} key={e.id} id={e.id} redirect={this.redirect}/>));
 
 		return (
 			<div>
 				<h1>
 					Top Events
 				</h1>
-				<div className='container'>
-					{ee}
-				</div>
+				{content}
 			</div>
 		);
 	}

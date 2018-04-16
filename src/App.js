@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route } from 'react-router-dom';
-import EventDetails from './components/topevents/TopEvents';
-import TopEvents from './components/eventdetails/EventDetails';
+import TopEvents from './components/topevents/TopEvents';
+import EventDetails from './components/eventdetails/EventDetails';
 
 class App extends Component {
 	render() {
