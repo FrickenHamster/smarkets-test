@@ -84,7 +84,7 @@ class Event extends Component {
 					 this.props.redirect(`event/${this.props.id}`);
 				 }}
 			>
-				<h3>{this.props.name} {this.props.id}</h3>
+				<h3>{this.props.name}</h3>
 			</div>
 		)
 	}
