@@ -11,7 +11,7 @@ class App extends Component {
 			<BrowserRouter>
 				<div>
 					<Route exact path='/' component={TopEvents} />
-					<Route path='/event' component={EventDetails} />
+					<Route path='/event/:id' component={EventDetails} />
 				</div>
 			</BrowserRouter>
 		);
